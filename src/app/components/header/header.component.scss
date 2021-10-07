@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  padding: 30px 40px;
+  .logo {
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.64px;
+
+    .menu-item {
+      margin-left: 80px;
+      cursor: pointer;
+    }
+    .menu-item.selected {
+      font-weight: bold;
+    }
+  }
+}

@@ -1,4 +1,17 @@
 <div class="header">
-    <img src="./../../../assets/images/PNRlogo.PNG" alt="PNR Finishing">
-    
+    <img class="logo" src="./../../../assets/images/PNRlogo.PNG" alt="PNR Finishing">
+    <div class="menu">
+        <div class="menu-item" [ngClass]="{ 'selected': selectedMenuItem ==='dashboard' }"
+            (click)="selectMenuItem('dashboard')">
+            HOME
+        </div>
+        <div class="menu-item" [ngClass]="{ 'selected': selectedMenuItem ==='all-pnrs' }"
+            (click)="selectMenuItem('all-pnrs')">
+            ALL PNR(s)
+        </div>
+        <div class="menu-item" [ngClass]="{ 'selected': selectedMenuItem ==='user-admin' }"
+            (click)="selectMenuItem('user-admin')">
+            USER ADMIN
+        </div>
+    </div>
 </div>
