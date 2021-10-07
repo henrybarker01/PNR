@@ -1,4 +1,4 @@
-import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {  HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MsalGuard, MsalInterceptor, MsalModule, MsalService, MSAL_INSTANCE } from '@azure/msal-angular';
@@ -62,6 +62,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       }
     ),
     BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [
     {
@@ -76,7 +77,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     MsalService,
     MsalGuard,
     DashboardService,
-    HttpClient
+    HttpClientModule
   ],
   bootstrap: [AppComponent],
 })
