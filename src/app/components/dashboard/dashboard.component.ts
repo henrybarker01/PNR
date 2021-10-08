@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   pnrFailedItem!: DashboardStatsDto;
   pnrRetriesItem!: DashboardStatsDto;
   selectedStore: string = '';
-  surveySeries: number[] = [50, 50];
+  surveySeries: number[] = [];
   surveyLabels: string[] = ['rules applied', 'no rules applied'];
   seriesColors: string[] = [
     '#546E7A', '#E91E63'
@@ -41,8 +41,10 @@ export class DashboardComponent implements OnInit {
         case DashboardMetricTypes.Processed:
           return (this.pnrProcessedItem = x);
         case DashboardMetricTypes.RulesApplied:
+          this.surveySeries.push(x.value);
           return (this.pnrRulesAppliedItem = x);
         case DashboardMetricTypes.RulesNotApplied:
+          this.surveySeries.push(x.value);
           return (this.pnrRulesNotAppliedItem = x);
         case DashboardMetricTypes.Failed:
           return (this.pnrFailedItem = x);
