@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-    selector:'app-user-administration',
-    templateUrl:'./user-administration.component.html',
-    styleUrls:['./user-administration.component.scss']
+  selector: 'app-user-administration',
+  templateUrl: './user-administration.component.html',
+  styleUrls: ['./user-administration.component.scss'],
 })
-export class UserAdministrationComponent{
+export class UserAdministrationComponent {
     
 }
