@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { DashboardService } from './services/dashboard/dashboart.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FunctionsKeyInterceptor } from './interceptors/functions-key.interceptor';
+import { UserAdministrationComponent } from './components/user-administation/user-administration.component';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -38,7 +39,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 }
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, DashboardComponent],
+  declarations: [AppComponent, HeaderComponent, DashboardComponent, UserAdministrationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

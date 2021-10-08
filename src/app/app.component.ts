@@ -29,11 +29,11 @@ export class AppComponent implements OnInit {
   constructor(private readonly msalService: MsalService, private readonly router: Router) {}
 
   ngOnInit() {
-    // if (this.msalService.instance.getActiveAccount()) {
-    //   this.router.navigateByUrl('/dashboard');
-    // } else {
-    //   this.login();
-    // }
+    if (this.msalService.instance.getActiveAccount()) {
+      this.router.navigateByUrl('/dashboard');
+    } else {
+      this.login();
+    }
   }
 
   login() {
