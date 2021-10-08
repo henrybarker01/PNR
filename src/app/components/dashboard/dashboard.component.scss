@@ -1,0 +1,62 @@
+.container {
+  background-image: url("/assets/images/background.png");
+  background-repeat: initial;
+  height: 100%;
+  width: 100%;
+  background-color: lightgray;
+
+  .details {
+    display: flex;
+    flex-direction: row;
+
+    .details-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      mat-card {
+        text-align: start;
+        padding: 0px 0px 0px 0px;
+        border-radius: 8px;
+        height: 198px;
+      }
+
+      .card-left {
+        padding: 24px 40px 24px 40px;
+      }
+
+      .card-bottom-left {
+        padding: 24px 40px 24px 40px;
+        flex: 1;  
+      }
+
+      .details-left-bottom {
+          display: flex;
+          flex-direction: row;
+      }
+    }
+
+    .details-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      .card-right {
+        padding: 24px 40px 24px 0px;
+      }
+    }
+  }
+
+  .card-header {
+      background-color: #f4f4f4;
+      height: 56px;
+
+      .card-header-text {
+      }
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+  }
+}

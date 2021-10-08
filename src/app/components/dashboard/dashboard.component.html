@@ -1,1 +1,57 @@
-<div>Dashboard</div>
+<div class="container light-gray">
+  <div class="details">
+    <div class="details-left">
+      <div class="card-left">
+        <mat-card>
+          <div class="card-header">
+            <div class="card-header-text t4 bold">PNR's Processed</div>
+          </div>
+          <div class="card-content">
+            <span>{{pnrProcessedItem.value}}</span>
+            <span>PNR's in total</span>
+          </div>
+        </mat-card>
+      </div>
+      <div class="card-left">
+        <mat-card>
+          <div>
+            <span>PNR's Processed</span>
+          </div>
+        </mat-card>
+      </div>
+      <div class="details-left-bottom">
+        <div class="card-bottom-left">
+          <mat-card>
+            <div>
+              <span>PNR's Retries</span>
+            </div>
+            <div class="card-content">
+              <span>{{pnrRetriesItem.value}}</span>
+              <span>PNR's in total</span>
+            </div>
+          </mat-card>
+        </div>
+        <div class="card-bottom-left">
+          <mat-card>
+            <div>
+              <span>PNR's Failed</span>
+            </div>
+            <div class="card-content">
+              <span>{{pnrFailedItem.value}}</span>
+              <span>PNR's failed</span>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="details-right">
+      <div class="card-right">
+        <mat-card>
+          <div>
+            <span>PNR's Processed</span>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
