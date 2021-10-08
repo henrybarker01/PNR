@@ -17,6 +17,11 @@ export class DashboardComponent implements OnInit {
   pnrFailedItem!: DashboardStatsDto;
   pnrRetriesItem!: DashboardStatsDto;
   selectedStore: string = '';
+  surveySeries: number[] = [50, 50];
+  surveyLabels: string[] = ['rules applied', 'no rules applied'];
+  seriesColors: string[] = [
+    '#546E7A', '#E91E63'
+  ];
 
   constructor(private readonly dashboardService: DashboardService) {}
 

@@ -18,7 +18,7 @@
         text-align: start;
         padding: 0px 0px 0px 0px;
         border-radius: 8px;
-        height: 198px;
+
       }
 
       .card-left {
@@ -90,10 +90,16 @@
       font-family: Montserrat;
       font-size: 16px;
       font-weight: bold;
+      padding-bottom: 40px;
     }
   }
 
   .red-text {
     color: #d70000;
+  }
+
+  .chart {
+    display: flex;
+    justify-content: center;
   }
 }

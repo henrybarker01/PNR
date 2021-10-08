@@ -28,6 +28,8 @@ import { UserAdministrationComponent } from './components/user-administation/use
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { AvatarModule } from 'ngx-avatar';
 import { MatIconModule } from '@angular/material/icon';
+import { AppDoughnutChartComponent } from './components/shared/app-doughnut-chart/app-doughnut-chart.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
@@ -62,6 +64,7 @@ const avatarColors = ['#19025d'];
     HeaderComponent,
     DashboardComponent,
     UserAdministrationComponent,
+    AppDoughnutChartComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ const avatarColors = ['#19025d'];
     MsalModule,
     MatCardModule,
     MatIconModule,
+    NgApexchartsModule,
     MsalModule.forRoot(
       new PublicClientApplication({
         auth: environment.msalConfig.auth,

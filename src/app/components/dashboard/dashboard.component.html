@@ -19,6 +19,12 @@
             <div class="card-header-text t4 bold">Rules applied</div>
             <mat-icon class="icon">arrow_forward_ios</mat-icon>
           </div>
+          <div class="chart">
+          <app-doughnut-chart width="280px" height="180px" [showDataLablels]="false" [showLegend]="true"
+            [showCenterLabel]="false" [dataSeries]="surveySeries" [dataLabels]="surveyLabels"
+            [seriesColors]="seriesColors">
+          </app-doughnut-chart>
+        </div>
         </mat-card>
       </div>
       <div class="details-left-bottom">
