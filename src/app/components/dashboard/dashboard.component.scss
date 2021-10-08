@@ -3,7 +3,7 @@
   background-repeat: initial;
   height: 100%;
   width: 100%;
-  background-color: lightgray;
+  background-color: #e8e5ee;
 
   .details {
     display: flex;
@@ -85,5 +85,15 @@
       font-size: 48px;
       font-weight: bold;
     }
+
+    .card-content-bottom-text {
+      font-family: Montserrat;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+
+  .red-text {
+    color: #d70000;
   }
 }
