@@ -14,6 +14,8 @@ import { DashboardService } from './services/dashboard/dashboart.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FunctionsKeyInterceptor } from './interceptors/functions-key.interceptor';
 import { UserAdministrationComponent } from './components/user-administation/user-administration.component';
+import { AuthenticationService } from './services/authentication/authentication.service';
+import { AvatarModule } from 'ngx-avatar';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -37,6 +39,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     },
   });
 }
+
+const avatarColors = ['#19025d'];
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, DashboardComponent, UserAdministrationComponent],
@@ -62,6 +66,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ),
     BrowserAnimationsModule,
     HttpClientModule,
+    AvatarModule.forRoot({
+      colors: avatarColors,
+    }),
   ],
   providers: [
     {
@@ -69,7 +76,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       useFactory: MSALInstanceFactory,
     },
     {
-      provide: HTTP_INTERCEPTORS, // Provides as HTTP Interceptor
+      provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
       multi: true,
     },
@@ -78,6 +85,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     MsalGuard,
     DashboardService,
     HttpClientModule,
+    AuthenticationService,
   ],
   bootstrap: [AppComponent],
 })
