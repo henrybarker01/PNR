@@ -5,39 +5,43 @@
         <mat-card>
           <div class="card-header">
             <div class="card-header-text t4 bold">PNR's Processed</div>
+            <mat-icon class="icon">arrow_forward_ios</mat-icon>
           </div>
           <div class="card-content">
-            <span>{{pnrProcessedItem.value}}</span>
+            <div class="card-content-text">{{pnrProcessedItem.value}}</div>
             <span>PNR's in total</span>
           </div>
         </mat-card>
       </div>
       <div class="card-left">
         <mat-card>
-          <div>
-            <span>PNR's Processed</span>
+          <div class="card-header">
+            <div class="card-header-text t4 bold">Rules applied</div>
+            <mat-icon class="icon">arrow_forward_ios</mat-icon>
           </div>
         </mat-card>
       </div>
       <div class="details-left-bottom">
         <div class="card-bottom-left">
           <mat-card>
-            <div>
-              <span>PNR's Retries</span>
+            <div class="card-header">
+              <div class="card-header-text t4 bold">Retries</div>
+              <mat-icon class="icon">arrow_forward_ios</mat-icon>
             </div>
             <div class="card-content">
-              <span>{{pnrRetriesItem.value}}</span>
+              <span class="card-content-text">{{pnrRetriesItem.value}}</span>
               <span>PNR's in total</span>
             </div>
           </mat-card>
         </div>
-        <div class="card-bottom-left">
+        <div class="card-bottom-left-right">
           <mat-card>
-            <div>
-              <span>PNR's Failed</span>
+            <div class="card-header">
+              <div class="card-header-text t4 bold">Failed</div>
+              <mat-icon class="icon">arrow_forward_ios</mat-icon>
             </div>
             <div class="card-content">
-              <span>{{pnrFailedItem.value}}</span>
+              <span class="card-content-text">{{pnrFailedItem.value}}</span>
               <span>PNR's failed</span>
             </div>
           </mat-card>
