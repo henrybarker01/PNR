@@ -1,9 +1,5 @@
-import {
-  HttpClient,
-  HttpClientModule,
-  HTTP_INTERCEPTORS,
-} from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   MsalGuard,
@@ -27,6 +23,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
 import { DashboardService } from './services/dashboard/dashboard.service';
+import { FunctionsKeyInterceptor } from './interceptors/functions-key.interceptor';
+import { UserAdministrationComponent } from './components/user-administation/user-administration.component';
+import { AuthenticationService } from './services/authentication/authentication.service';
+import { AvatarModule } from 'ngx-avatar';
 
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
@@ -53,8 +53,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   });
 }
 
+const avatarColors = ['#19025d'];
+
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, DashboardComponent],
+  declarations: [AppComponent, HeaderComponent, DashboardComponent, UserAdministrationComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -76,10 +78,14 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         interactionType: InteractionType.Redirect,
         protectedResourceMap: new Map([
           ['https://graph.microsoft.com/v1.0/me', ['user.read']],
-        ]),
+        ])
       }
     ),
     BrowserAnimationsModule,
+    HttpClientModule,
+    AvatarModule.forRoot({
+      colors: avatarColors,
+    }),
   ],
   providers: [
     {
@@ -87,14 +93,16 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       useFactory: MSALInstanceFactory,
     },
     {
-      provide: HTTP_INTERCEPTORS, // Provides as HTTP Interceptor
+      provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
       multi: true,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: FunctionsKeyInterceptor, multi: true },
     MsalService,
     MsalGuard,
     DashboardService,
-    HttpClient,
+    HttpClientModule,
+    AuthenticationService,
   ],
   bootstrap: [AppComponent],
 })
