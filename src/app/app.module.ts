@@ -1,4 +1,4 @@
-import {  HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MsalGuard, MsalInterceptor, MsalModule, MsalService, MSAL_INSTANCE } from '@azure/msal-angular';
@@ -12,6 +12,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
 import { DashboardService } from './services/dashboard/dashboart.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FunctionsKeyInterceptor } from './interceptors/functions-key.interceptor';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -47,7 +48,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         auth: environment.msalConfig.auth,
       }),
       {
-        
         interactionType: InteractionType.Redirect,
         authRequest: {
           scopes: ['user.read'],
@@ -56,13 +56,11 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       },
       {
         interactionType: InteractionType.Redirect,
-        protectedResourceMap: new Map([ 
-            ['https://graph.microsoft.com/v1.0/me', ['user.read']]
-        ])
+        protectedResourceMap: new Map([['https://graph.microsoft.com/v1.0/me', ['user.read']]]),
       }
     ),
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {
@@ -72,12 +70,13 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     {
       provide: HTTP_INTERCEPTORS, // Provides as HTTP Interceptor
       useClass: MsalInterceptor,
-      multi: true
-  },
+      multi: true,
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: FunctionsKeyInterceptor, multi: true },
     MsalService,
     MsalGuard,
     DashboardService,
-    HttpClientModule
+    HttpClientModule,
   ],
   bootstrap: [AppComponent],
 })
