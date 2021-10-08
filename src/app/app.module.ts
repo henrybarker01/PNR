@@ -16,6 +16,7 @@ import { FunctionsKeyInterceptor } from './interceptors/functions-key.intercepto
 import { UserAdministrationComponent } from './components/user-administation/user-administration.component';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { AvatarModule } from 'ngx-avatar';
+import { UserAdministrationService } from './services/user-administration/user-administartion.service';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -86,6 +87,7 @@ const avatarColors = ['#19025d'];
     DashboardService,
     HttpClientModule,
     AuthenticationService,
+    UserAdministrationService,
   ],
   bootstrap: [AppComponent],
 })
