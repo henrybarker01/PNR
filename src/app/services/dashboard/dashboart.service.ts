@@ -15,7 +15,9 @@ export class DashboardService {
     );
   }
 
-  getdashboardmostrecent(startDate: Date, endDate: Date, pcc: string):Observable<IPnrSummary[]> {
-    return this.httpClient.get<IPnrSummary[]>(`${environment.apiUrl}getdashboardmostrecent?PCC=${pcc}&StartDate=${startDate}&EndDate=${endDate}`);
+  getdashboardmostrecent(startDate: Date, endDate: Date, pcc: string): Observable<IPnrSummary[]> {
+    return this.httpClient.get<IPnrSummary[]>(
+      `${environment.apiUrl}getdashboardmostrecent?PCC=${pcc}&StartDate=${startDate}&EndDate=${endDate}`
+    );
   }
 }
