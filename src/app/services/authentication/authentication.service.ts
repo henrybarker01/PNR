@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MsalService } from '@azure/msal-angular';
-import { PopupRequest } from '@azure/msal-browser';
-import { AccountInfo } from '@azure/msal-common';
-import { Subject } from 'rxjs';
+import { PopupRequest, SilentRequest } from '@azure/msal-browser';
+import { AccountInfo, AuthenticationResult } from '@azure/msal-common';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -17,6 +17,14 @@ export class AuthenticationService {
 
   isLoggedIn(): boolean {
     return this.msalService.instance.getActiveAccount() != null;
+  }
+
+  async getToken() {
+    const silentRequest: SilentRequest = {
+      scopes: environment.msalConfig.auth.scopes,
+      authority: environment.msalConfig.auth.authority,
+    };
+    return await this.msalService.acquireTokenSilent(silentRequest);
   }
 
   login() {
