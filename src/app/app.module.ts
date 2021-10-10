@@ -30,6 +30,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { UserAdministrationService } from './services/user-administration/user-administartion.service';
  import { MatIconModule } from '@angular/material/icon';
 import { AppDoughnutChartComponent } from './components/shared/app-doughnut-chart/app-doughnut-chart.component';
+import { MatTableModule } from '@angular/material/table';
 import { NgApexchartsModule } from 'ng-apexcharts'; 
 
 const isIE =
@@ -65,7 +66,7 @@ const avatarColors = ['#19025d'];
     HeaderComponent,
     DashboardComponent,
     UserAdministrationComponent,
-    AppDoughnutChartComponent
+    AppDoughnutChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +74,7 @@ const avatarColors = ['#19025d'];
     AppRoutingModule,
     MsalModule,
     MatCardModule,
+    MatTableModule,
     MatIconModule,
     NgApexchartsModule,
     MsalModule.forRoot(

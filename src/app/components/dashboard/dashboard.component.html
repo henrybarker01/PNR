@@ -8,7 +8,7 @@
             <mat-icon class="icon">arrow_forward_ios</mat-icon>
           </div>
           <div class="card-content">
-            <div class="card-content-text">{{pnrProcessedItem.value}}</div>
+            <div class="card-content-text">{{ pnrProcessedItem.value }}</div>
             <span class="card-content-bottom-text">PNR's in total</span>
           </div>
         </mat-card>
@@ -20,11 +20,11 @@
             <mat-icon class="icon">arrow_forward_ios</mat-icon>
           </div>
           <div class="chart">
-          <app-doughnut-chart width="280px" height="180px" [showDataLablels]="false" [showLegend]="true"
-            [showCenterLabel]="false" [dataSeries]="surveySeries" [dataLabels]="surveyLabels"
-            [seriesColors]="seriesColors">
-          </app-doughnut-chart>
-        </div>
+            <app-doughnut-chart width="280px" height="180px"
+               [dataSeries]="surveySeries" [dataLabels]="surveyLabels"
+              >
+            </app-doughnut-chart>
+          </div>
         </mat-card>
       </div>
       <div class="details-left-bottom">
@@ -35,7 +35,7 @@
               <mat-icon class="icon">arrow_forward_ios</mat-icon>
             </div>
             <div class="card-content">
-              <span class="card-content-text">{{pnrRetriesItem.value}}</span>
+              <span class="card-content-text">{{ pnrRetriesItem.value }}</span>
               <span class="card-content-bottom-text">PNR's in total</span>
             </div>
           </mat-card>
@@ -47,7 +47,9 @@
               <mat-icon class="icon">arrow_forward_ios</mat-icon>
             </div>
             <div class="card-content">
-              <span class="card-content-text red-text">{{pnrFailedItem.value}}</span>
+              <span class="card-content-text red-text">{{
+                pnrFailedItem.value
+              }}</span>
               <span class="card-content-bottom-text red-text">PNR's failed</span>
             </div>
           </mat-card>
@@ -57,8 +59,66 @@
     <div class="details-right">
       <div class="card-right">
         <mat-card>
-          <div>
-            <span>PNR's Processed</span>
+          <div class="card-header">
+            <div class="card-header-text t4 bold">Most recent</div>
+          </div>
+          <div class="table">
+            <table mat-table class="table" [dataSource]="dataSource">
+              <ng-container matColumnDef="Identifier">
+                <th mat-header-cell class="table-header" *matHeaderCellDef>Identifier</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.identifier }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="PCC">
+                <th mat-header-cell class="table-header" *matHeaderCellDef>PCC</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.pCC }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Time">
+                <th mat-header-cell class="table-header" *matHeaderCellDef>Time</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.dateTimeStamp | date: "h:mm" }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Rules">
+                <th mat-header-cell class="table-header" *matHeaderCellDef>Rules</th>
+                <td mat-cell *matCellDef="let element">{{ element.rules }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="Status">
+                <th mat-header-cell class="table-header" *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">
+                  <div
+                    [ngClass]="{'status-failed': element.status === 'Failed', 'status-passed' : element.status === 'Passed' }">
+                    <div class="status-padding">{{ element.status }}</div>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+              <ng-container matColumnDef="groupHeader">
+                <td mat-cell colspan="999" *matCellDef="let groupBy">
+                  <div class="table-group-heading">
+                    <strong>{{ groupBy.date | date: "EE d MMMM yyyy" }}</strong>
+                    <div class="table-group-status-container">
+                      <div class="status-text-failed">
+                        {{groupBy.numberOfFailedPnr}} failed
+                      </div>
+                      <div class="status-text-passed">
+                        {{groupBy.numberOfPassedPnr}} passed
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup"> </tr>
+            </table>
           </div>
         </mat-card>
       </div>

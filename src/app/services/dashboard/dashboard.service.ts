@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DashboardStatsDto } from 'src/models/DashboardStatsDto';
 import { of } from 'rxjs';
+import { IPnrSummary } from 'src/app/models/pnr-summary.model';
 
 @Injectable()
 export class DashboardService {
@@ -20,11 +21,19 @@ export class DashboardService {
     //   { headers: headers }
     // );
 
-    return of(Data.data);
+    return of(MockMetricData.data);
+  }
+
+  getdashboardmostrecent(): Observable<any[]> {
+    // return this.httpClient.get<IPnrSummary[]>(
+    //   `${environment.apiUrl}getdashboardmostrecent?PCC=${pcc}&StartDate=${startDate}&EndDate=${endDate}`
+    // );
+
+    return of(MockAllPnrData.data);
   }
 }
 
-export class Data {
+export class MockMetricData {
   public static data = [
     {
       item: 'PNRs Processed',
@@ -40,11 +49,100 @@ export class Data {
     },
     {
       item: 'Failed',
-      value: 1,
+      value: 3,
     },
     {
       item: 'Retries',
       value: 4,
     },
   ];
+}
+
+export class MockAllPnrData {
+  public static data = [
+    {
+        identifier: "FVHUQSRS",
+        pCC: "7SVG",
+        dateTimeStamp: "2021-10-10T07:16:49.7257034+00:00",
+        rules: 4,
+        status: "Passed"
+    },
+    {
+        identifier: "CDTRWKAA",
+        pCC: "7SVG",
+        dateTimeStamp: "2021-10-10T07:15:28.7264769+00:00",
+        rules: 8,
+        status: "Passed"
+    },
+    {
+        identifier: "GDUYUESC",
+        pCC: "P9DF",
+        dateTimeStamp: "2021-10-10T07:16:12.7264782+00:00",
+        rules: 6,
+        status: "Failed"
+    },
+    {
+        identifier: "GDCCETDS",
+        pCC: "P9DF",
+        dateTimeStamp: "2021-10-10T07:16:16.7264785+00:00",
+        rules: 6,
+        status: "Passed"
+    },
+    {
+      identifier: "GDCCETDS",
+      pCC: "P9DF",
+      dateTimeStamp: "2021-10-10T07:16:16.7264785+00:00",
+      rules: 6,
+      status: "Passed"
+  },
+  {
+    identifier: "GDCCETDS",
+    pCC: "P9DF",
+    dateTimeStamp: "2021-10-10T07:16:16.7264785+00:00",
+    rules: 6,
+    status: "Passed"
+},
+{
+  identifier: "GDCCETDS",
+  pCC: "P9DF",
+  dateTimeStamp: "2021-10-10T07:16:16.7264785+00:00",
+  rules: 6,
+  status: "Passed"
+},
+{
+  identifier: "GDCCETDS",
+  pCC: "P9DF",
+  dateTimeStamp: "2021-10-10T07:16:16.7264785+00:00",
+  rules: 6,
+  status: "Passed"
+},
+{
+  identifier: "GDCCETDS",
+  pCC: "P9DF",
+  dateTimeStamp: "2021-10-10T07:16:16.7264785+00:00",
+  rules: 6,
+  status: "Passed"
+},
+{
+  identifier: "GDCCETDS",
+  pCC: "P9DF",
+  dateTimeStamp: "2021-10-10T07:16:16.7264785+00:00",
+  rules: 6,
+  status: "Passed"
+},
+{
+  identifier: "GDCCETDS",
+  pCC: "P9DF",
+  dateTimeStamp: "2021-10-10T07:16:16.7264785+00:00",
+  rules: 6,
+  status: "Passed"
+},
+{
+  identifier: "GDCCETDS",
+  pCC: "P9DF",
+  dateTimeStamp: "2021-10-10T07:16:16.7264785+00:00",
+  rules: 6,
+  status: "Passed"
+},
+]
 }

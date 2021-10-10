@@ -28,11 +28,6 @@ export class AppDoughnutChartComponent implements OnInit {
   @Input() height: string | number = '500px';
   @Input() dataSeries: number[] = [];
   @Input() dataLabels: string[] = [];
-  @Input() showCenterLabel: boolean = false;
-  @Input() showDataLablels: boolean = false;
-  @Input() showLegend: boolean = false;
-  @Input() seriesColors: string[] = ['blue', 'red'];
-  @Input() labelColors: string[] = [];
   @Input() dataLabelsFontSize = '13px';
   @Input() legendMargin: { vertical: number; horizontal: number } = {
     vertical: 5,
@@ -60,7 +55,7 @@ export class AppDoughnutChartComponent implements OnInit {
         width: 350,
         height: 350,
       },
-      labels: this.dataLabels,
+      labels: ['rules applied', 'no rules applied'],
       plotOptions: {
         pie: {
           expandOnClick: false,
