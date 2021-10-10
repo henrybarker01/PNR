@@ -1,1 +1,67 @@
-<div>Dashboard</div>
+<div class="container light-gray">
+  <div class="details">
+    <div class="details-left">
+      <div class="card-left">
+        <mat-card>
+          <div class="card-header">
+            <div class="card-header-text t4 bold">PNR's Processed</div>
+            <mat-icon class="icon">arrow_forward_ios</mat-icon>
+          </div>
+          <div class="card-content">
+            <div class="card-content-text">{{pnrProcessedItem.value}}</div>
+            <span class="card-content-bottom-text">PNR's in total</span>
+          </div>
+        </mat-card>
+      </div>
+      <div class="card-left">
+        <mat-card>
+          <div class="card-header">
+            <div class="card-header-text t4 bold">Rules applied</div>
+            <mat-icon class="icon">arrow_forward_ios</mat-icon>
+          </div>
+          <div class="chart">
+          <app-doughnut-chart width="280px" height="180px" [showDataLablels]="false" [showLegend]="true"
+            [showCenterLabel]="false" [dataSeries]="surveySeries" [dataLabels]="surveyLabels"
+            [seriesColors]="seriesColors">
+          </app-doughnut-chart>
+        </div>
+        </mat-card>
+      </div>
+      <div class="details-left-bottom">
+        <div class="card-bottom-left">
+          <mat-card>
+            <div class="card-header">
+              <div class="card-header-text t4 bold">Retries</div>
+              <mat-icon class="icon">arrow_forward_ios</mat-icon>
+            </div>
+            <div class="card-content">
+              <span class="card-content-text">{{pnrRetriesItem.value}}</span>
+              <span class="card-content-bottom-text">PNR's in total</span>
+            </div>
+          </mat-card>
+        </div>
+        <div class="card-bottom-left-right">
+          <mat-card>
+            <div class="card-header">
+              <div class="card-header-text t4 bold">Failed</div>
+              <mat-icon class="icon">arrow_forward_ios</mat-icon>
+            </div>
+            <div class="card-content">
+              <span class="card-content-text red-text">{{pnrFailedItem.value}}</span>
+              <span class="card-content-bottom-text red-text">PNR's failed</span>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="details-right">
+      <div class="card-right">
+        <mat-card>
+          <div>
+            <span>PNR's Processed</span>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
