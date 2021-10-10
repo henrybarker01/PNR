@@ -26,11 +26,12 @@ import { DashboardService } from './services/dashboard/dashboard.service';
 import { FunctionsKeyInterceptor } from './interceptors/functions-key.interceptor';
 import { UserAdministrationComponent } from './components/user-administation/user-administration.component';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { AvatarModule } from 'ngx-avatar';
-import { MatIconModule } from '@angular/material/icon';
+import { AvatarModule } from 'ngx-avatar'; 
+import { UserAdministrationService } from './services/user-administration/user-administartion.service';
+ import { MatIconModule } from '@angular/material/icon';
 import { AppDoughnutChartComponent } from './components/shared/app-doughnut-chart/app-doughnut-chart.component';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import { MatTableModule } from '@angular/material/table';
+import { NgApexchartsModule } from 'ng-apexcharts'; 
 
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
@@ -120,6 +121,7 @@ const avatarColors = ['#19025d'];
     DashboardService,
     HttpClientModule,
     AuthenticationService,
+    UserAdministrationService,
   ],
   bootstrap: [AppComponent],
 })
