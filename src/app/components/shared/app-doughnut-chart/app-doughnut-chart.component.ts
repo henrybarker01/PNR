@@ -45,7 +45,7 @@ export class AppDoughnutChartComponent implements OnInit {
 
   private initChart(): void {
     this.chartOptions = {
-      colors : ['#b84644', '#4576b5'],
+      colors : ['#18173e', '#d70000'],
       dataLabels: {
         enabled: false,
       },

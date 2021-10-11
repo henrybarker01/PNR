@@ -41,11 +41,11 @@ export class MockMetricData {
     },
     {
       item: 'RulesApplied_Applied',
-      value: 97,
+      value: 50,
     },
     {
       item: 'RulesApplied_NotApplied',
-      value: 3,
+      value: 50,
     },
     {
       item: 'Failed',
