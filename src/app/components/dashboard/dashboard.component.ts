@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { IPnrSummary } from 'src/app/models/pnr-summary.model';
+import { IPnrSummary } from 'src/app/models/pnr-summary.model'; 
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { DashboardMetricTypes } from 'src/models/DashboardMetricTypes';
 import { DashboardStatsDto } from 'src/models/DashboardStatsDto';
@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getDashboardMostRecent() {
-    this.dashboardService.getdashboardmostrecent().subscribe((x) => {
+    this.dashboardService.getDashboardMostRecent().subscribe((x) => {
       this.mostRecentPnrs = x;
     });
   }

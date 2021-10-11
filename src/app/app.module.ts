@@ -11,7 +11,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
-import { DashboardService } from './services/dashboard/dashboard.service';
 import { FunctionsKeyInterceptor } from './interceptors/functions-key.interceptor';
 import { UserAdministrationComponent } from './components/user-administation/user-administration.component';
 import { AuthenticationService } from './services/authentication/authentication.service';
@@ -25,6 +24,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PCCService } from './services/pcc/pcc.service';
+import { DashboardService } from './services/dashboard/dashboard.service';
+import { DashboardMockService } from './services/dashboard/dashboard-mock.service';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -115,6 +117,8 @@ const avatarColors = ['#19025d'];
     HttpClientModule,
     AuthenticationService,
     UserAdministrationService,
+    PCCService,
+    DashboardMockService,
   ],
   bootstrap: [AppComponent],
 })

@@ -15,7 +15,9 @@ export class DialogComponent {
   dataSource = ELEMENT_DATA;
   usersFound: boolean = false;
 
-  addUser(userName: string) {}
+  addUser(userName: string) {
+      
+  }
 
   searchUsers() {
     setTimeout(() => {
