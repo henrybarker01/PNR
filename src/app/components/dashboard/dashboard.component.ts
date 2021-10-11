@@ -1,6 +1,7 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { IPnrSummary } from 'src/app/models/pnr-summary.model'; 
+import { IDashboardTelementry } from 'src/app/models/dashboard-telementry.model';
+import { IPnrSummary } from 'src/app/models/pnr-summary.model';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { DashboardMetricTypes } from 'src/models/DashboardMetricTypes';
 import { DashboardStatsDto } from 'src/models/DashboardStatsDto';
@@ -11,13 +12,13 @@ import { DashboardStatsDto } from 'src/models/DashboardStatsDto';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  dashBoardItems: DashboardStatsDto[] = [];
+  dashBoardItems: IDashboardTelementry[] = [];
   mostRecentPnrs: IPnrSummary[] = [];
-  pnrProcessedItem!: DashboardStatsDto;
-  pnrRulesAppliedItem!: DashboardStatsDto;
-  pnrRulesNotAppliedItem!: DashboardStatsDto;
-  pnrFailedItem!: DashboardStatsDto;
-  pnrRetriesItem!: DashboardStatsDto;
+  pnrProcessedItem!: IDashboardTelementry;
+  pnrRulesAppliedItem!: IDashboardTelementry;
+  pnrRulesNotAppliedItem!: IDashboardTelementry;
+  pnrFailedItem!: IDashboardTelementry;
+  pnrRetriesItem!: IDashboardTelementry;
   selectedStore: string = '';
   surveySeries: number[] = [];
   surveyLabels: string[] = ['rules applied', 'no rules applied'];
@@ -33,13 +34,13 @@ export class DashboardComponent implements OnInit {
   }
 
   getDashboardStats() {
-    this.dashboardService.getDashboardStats().subscribe((x) => {
+    this.dashboardService.getDashboardStats('2021-01-01', '2022-01-01', '7SVG').subscribe((x) => {
       this.buildDashBoardStatsItems(x);
     });
   }
 
   getDashboardMostRecent() {
-    this.dashboardService.getDashboardMostRecent().subscribe((x) => {
+    this.dashboardService.getDashboardMostRecent('2021-01-01', '2022-01-01', '7SVG').subscribe((x) => {
       this.mostRecentPnrs = x;
     });
   }
@@ -48,16 +49,16 @@ export class DashboardComponent implements OnInit {
     return item.isGroupBy;
   }
 
-  buildDashBoardStatsItems(dashBoardItems: DashboardStatsDto[]) {
+  buildDashBoardStatsItems(dashBoardItems: IDashboardTelementry[]) {
     dashBoardItems.forEach((x) => {
-      switch (x.item) {
+      switch (x.Item) {
         case DashboardMetricTypes.Processed:
           return (this.pnrProcessedItem = x);
         case DashboardMetricTypes.RulesApplied:
-          this.surveySeries.push(x.value);
+          this.surveySeries.push(x.Value);
           return (this.pnrRulesAppliedItem = x);
         case DashboardMetricTypes.RulesNotApplied:
-          this.surveySeries.push(x.value);
+          this.surveySeries.push(x.Value);
           return (this.pnrRulesNotAppliedItem = x);
         case DashboardMetricTypes.Failed:
           return (this.pnrFailedItem = x);
