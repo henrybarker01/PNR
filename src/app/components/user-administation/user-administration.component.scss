@@ -14,3 +14,24 @@
     box-shadow: none !important;
   }
 }
+
+.card-header {
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f4f4;
+    height: 56px;
+    font-family: Montserrat;
+
+    .card-header-text {
+      padding-left: 24px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .icon {
+      padding-right: 34px;
+    }
+  }

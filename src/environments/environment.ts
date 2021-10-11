@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   apiUrl: 'https://fn-bidtravel-pnrfinisher-portal-dev.azurewebsites.net/api/',
   functionsKey: 'VqziGr8SPgew6GbqJI4dQsDtp3G8ylhhZEptzA4T970hNG2aApzI5g==',
   msalConfig: {

@@ -18,8 +18,6 @@ export class AppComponent implements OnInit {
       } else {
         this.login();
       }
-    } else {
-      this.router.navigateByUrl('/dashboard');
     }
   }
 

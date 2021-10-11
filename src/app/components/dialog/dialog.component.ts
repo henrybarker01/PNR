@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
-const ELEMENT_DATA = [{ name: 'Henry', surname: 'Barker', username: 'henry.barker@britehouse.co.za', role: 'User Administation' }];
+const ELEMENT_DATA = [
+  { name: 'Henry', surname: 'Barker', username: 'henry.barker@britehouse.co.za', role: 'User' },
+  { name: 'Henry', surname: 'Demo', username: 'henry.demo@bidtravel.co.za', role: 'User' },
+];
 
 @Component({
   selector: 'app-dialog',
