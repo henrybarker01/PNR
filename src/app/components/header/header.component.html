@@ -1,21 +1,33 @@
 <div class="header">
-    <img class="logo" src="./../../../assets/images/PNRlogo.PNG" alt="PNR Finishing">
-    <div class="menu">
-        <div class="menu-item" [ngClass]="{ 'selected': selectedMenuItem ==='dashboard' }"
-            (click)="selectMenuItem('dashboard')">
-            HOME
+    <div class="top">
+        <img class="logo" src="./../../../assets/images/PNRlogo.PNG" alt="PNR Finishing">
+        <div class="menu">
+            <div class="menu-item" [ngClass]="{ 'selected': selectedMenuItem ==='dashboard' }"
+                (click)="selectMenuItem('dashboard')">
+                HOME
+            </div>
+            <div class="menu-item" [ngClass]="{ 'selected': selectedMenuItem ==='all-pnrs' }"
+                (click)="selectMenuItem('all-pnrs')">
+                ALL PNR(s)
+            </div>
+            <div class="menu-item" [ngClass]="{ 'selected': selectedMenuItem ==='user-administration' }"
+                (click)="selectMenuItem('user-administration')">
+                USER ADMIN
+            </div>
         </div>
-        <div class="menu-item" [ngClass]="{ 'selected': selectedMenuItem ==='all-pnrs' }"
-            (click)="selectMenuItem('all-pnrs')">
-            ALL PNR(s)
-        </div>
-        <div class="menu-item" [ngClass]="{ 'selected': selectedMenuItem ==='user-administration' }"
-            (click)="selectMenuItem('user-administration')">
-            USER ADMIN
+        <div class="active-user">
+            <div class="user-name">{{ activeAccountInfo?.name }}</div>
+            <ngx-avatar class="user-avatar" name="{{ activeAccountInfo?.name }}"></ngx-avatar>
         </div>
     </div>
-    <div class="active-user">
-        <div class="user-name">{{ activeAccountInfo?.name }}</div>
-        <ngx-avatar class="user-avatar" name="{{ activeAccountInfo?.name }}"></ngx-avatar>
+    <div class="search">
+        <mat-form-field appearance="fill">
+            <mat-label>PCC</mat-label>
+            <mat-select [formControl]="pcc" multiple [(ngModel)]="selectedPCC" 
+            (ngModelChange)="selectedPCC" >
+                <mat-option *ngFor="let pcc of pccList" [value]="pcc">{{pcc.PCC}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-button class="search-button" color="primary" (click)="search()">search</button>
     </div>
 </div>

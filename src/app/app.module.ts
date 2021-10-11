@@ -26,7 +26,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PCCService } from './services/pcc/pcc.service';
 import { DashboardService } from './services/dashboard/dashboard.service';
-import { DashboardMockService } from './services/dashboard/dashboard-mock.service';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -66,6 +67,7 @@ const avatarColors = ['#19025d'];
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     MsalModule,
     MatCardModule,
     MatTableModule,
@@ -74,6 +76,7 @@ const avatarColors = ['#19025d'];
     NgApexchartsModule,
     MatButtonModule,
     MatDialogModule,
+    MatSelectModule,
     MsalModule.forRoot(
       new PublicClientApplication({
         auth: environment.msalConfig.auth,
@@ -118,7 +121,6 @@ const avatarColors = ['#19025d'];
     AuthenticationService,
     UserAdministrationService,
     PCCService,
-    DashboardMockService,
   ],
   bootstrap: [AppComponent],
 })
