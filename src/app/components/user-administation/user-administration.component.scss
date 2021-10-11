@@ -1,6 +1,16 @@
-.user-search{
-    
-}
-.existing-users{
+.user-administation-container {
+  padding: 30px;
+  
+  .existing-users {
+    .card-header {
+      .add-users {
+        margin-right: 30px;
+      }
+    }
+  }
 
+  table {
+    width: 100%;
+    box-shadow: none !important;
+  }
 }

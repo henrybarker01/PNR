@@ -1,19 +1,8 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  MsalGuard,
-  MsalInterceptor,
-  MsalModule,
-  MsalService,
-  MSAL_INSTANCE,
-} from '@azure/msal-angular';
-import {
-  BrowserCacheLocation,
-  InteractionType,
-  IPublicClientApplication,
-  PublicClientApplication,
-} from '@azure/msal-browser';
+import { MsalGuard, MsalInterceptor, MsalModule, MsalService, MSAL_INSTANCE } from '@azure/msal-angular';
+import { BrowserCacheLocation, InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 import { LogLevel } from '@azure/msal-common';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,16 +15,18 @@ import { DashboardService } from './services/dashboard/dashboard.service';
 import { FunctionsKeyInterceptor } from './interceptors/functions-key.interceptor';
 import { UserAdministrationComponent } from './components/user-administation/user-administration.component';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { AvatarModule } from 'ngx-avatar'; 
+import { AvatarModule } from 'ngx-avatar';
 import { UserAdministrationService } from './services/user-administration/user-administartion.service';
- import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { AppDoughnutChartComponent } from './components/shared/app-doughnut-chart/app-doughnut-chart.component';
 import { MatTableModule } from '@angular/material/table';
-import { NgApexchartsModule } from 'ng-apexcharts'; 
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
-const isIE =
-  window.navigator.userAgent.indexOf('MSIE ') > -1 ||
-  window.navigator.userAgent.indexOf('Trident/') > -1;
+const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
@@ -67,6 +58,7 @@ const avatarColors = ['#19025d'];
     DashboardComponent,
     UserAdministrationComponent,
     AppDoughnutChartComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +68,10 @@ const avatarColors = ['#19025d'];
     MatCardModule,
     MatTableModule,
     MatIconModule,
+    MatInputModule,
     NgApexchartsModule,
+    MatButtonModule,
+    MatDialogModule,
     MsalModule.forRoot(
       new PublicClientApplication({
         auth: environment.msalConfig.auth,
@@ -90,9 +85,7 @@ const avatarColors = ['#19025d'];
       },
       {
         interactionType: InteractionType.Redirect,
-        protectedResourceMap: new Map([
-          ['https://graph.microsoft.com/v1.0/me', ['user.read']],
-        ]),
+        protectedResourceMap: new Map([['https://graph.microsoft.com/v1.0/me', ['user.read']]]),
       }
     ),
     BrowserAnimationsModule,

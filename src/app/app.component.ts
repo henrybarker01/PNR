@@ -12,15 +12,15 @@ export class AppComponent implements OnInit {
   constructor(private readonly router: Router, private readonly authenticationService: AuthenticationService) {}
 
   ngOnInit() {
-    if (environment.production) {
-      if (this.authenticationService.isLoggedIn()) {
-        this.router.navigateByUrl('/dashboard');
-      } else {
-        this.login();
-      }
-    } else {
-      this.router.navigateByUrl('/dashboard');
-    }
+    // if (environment.production) {
+    //   if (this.authenticationService.isLoggedIn()) {
+    //     this.router.navigateByUrl('/dashboard');
+    //   } else {
+    //     this.login();
+    //   }
+    // } else {
+    //   this.router.navigateByUrl('/dashboard');
+    // }
   }
 
   login() {

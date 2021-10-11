@@ -34,7 +34,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/app/styles/fonts.scss"
+              "src/app/styles/fonts.scss",
+              "src/app/styles/global.scss"
             ],
             "scripts": [],
             "vendorChunk": true,
@@ -63,7 +64,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
