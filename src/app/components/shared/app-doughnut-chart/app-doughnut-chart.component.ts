@@ -45,15 +45,27 @@ export class AppDoughnutChartComponent implements OnInit {
 
   private initChart(): void {
     this.chartOptions = {
-      colors : ['#18173e', '#d70000'],
+      legend: {
+        markers: {
+          width: 0,
+        },
+        show: true,
+        formatter: function (w, p) {
+          return `
+        <div style="width: 235px;background-color:#f4f4f4;height: 50px;text-align: center;font-weight: 700;font-size:14px;">
+        <div style="height: 100%;text-align: center;padding-top: 17px;">${p.w.globals.series[p.seriesIndex] + ' - ' + w}</div>
+        </div>`;
+        },
+      },
+      colors: ['#18173e', '#d70000'],
       dataLabels: {
         enabled: false,
       },
       series: this.dataSeries,
       chart: {
         type: 'donut',
-        width: 350,
-        height: 350,
+        width: 500,
+        height: 500,
       },
       labels: ['rules applied', 'no rules applied'],
       plotOptions: {
