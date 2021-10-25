@@ -1,0 +1,430 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "For_each": {
+                "actions": {
+                    "Condition": {
+                        "actions": {
+                            "ApplyRules": {
+                                "inputs": {
+                                    "body": "@body('Get_blob_content')",
+                                    "function": {
+                                        "id": "/subscriptions/0a06704c-e754-450f-8cc6-5b7f82dca26d/resourceGroups/rg-bidtravel-pnrfinisher-dev/providers/Microsoft.Web/sites/fn-bidtravel-pnrfinisher-pnrhandler-dev/functions/ApplyRules"
+                                    },
+                                    "headers": {
+                                        "FODURL": "@{body('GetFODUrl')['Value']}",
+                                        "Locator": "@triggerBody()?['Name']",
+                                        "Token": "@body('Extract_Token')?['access_token']"
+                                    },
+                                    "retryPolicy": {
+                                        "type": "none"
+                                    }
+                                },
+                                "runAfter": {
+                                    "Extract_Token": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "Function"
+                            },
+                            "Extract_Token": {
+                                "inputs": {
+                                    "content": "@body('GetSabreToken')",
+                                    "schema": {
+                                        "properties": {
+                                            "access_token": {
+                                                "type": "string"
+                                            },
+                                            "expires_in": {
+                                                "type": "integer"
+                                            },
+                                            "token_type": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "runAfter": {
+                                    "GetSabreToken": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "ParseJson"
+                            },
+                            "GetFODUrl": {
+                                "inputs": {
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['azuretables']['connectionId']"
+                                        }
+                                    },
+                                    "method": "get",
+                                    "path": "/Tables/@{encodeURIComponent('Config')}/entities(PartitionKey='@{encodeURIComponent('Settings')}',RowKey='@{encodeURIComponent('FODURL')}')",
+                                    "queries": {
+                                        "$select": "Value"
+                                    }
+                                },
+                                "runAfter": {
+                                    "GetSabrePCC": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "ApiConnection"
+                            },
+                            "GetSabreBaseURL": {
+                                "inputs": {
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['azuretables']['connectionId']"
+                                        }
+                                    },
+                                    "method": "get",
+                                    "path": "/Tables/@{encodeURIComponent('Config')}/entities(PartitionKey='@{encodeURIComponent('Settings')}',RowKey='@{encodeURIComponent('BaseURL')}')",
+                                    "queries": {
+                                        "$select": "Value"
+                                    }
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            },
+                            "GetSabrePCC": {
+                                "inputs": {
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['azuretables']['connectionId']"
+                                        }
+                                    },
+                                    "method": "get",
+                                    "path": "/Tables/@{encodeURIComponent('Config')}/entities(PartitionKey='@{encodeURIComponent('Settings')}',RowKey='@{encodeURIComponent('Sabre_PCC')}')",
+                                    "queries": {
+                                        "$select": "Value"
+                                    }
+                                },
+                                "runAfter": {
+                                    "GetSabrePassword": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "ApiConnection"
+                            },
+                            "GetSabrePassword": {
+                                "inputs": {
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['azuretables']['connectionId']"
+                                        }
+                                    },
+                                    "method": "get",
+                                    "path": "/Tables/@{encodeURIComponent('Config')}/entities(PartitionKey='@{encodeURIComponent('Settings')}',RowKey='@{encodeURIComponent('Sabre_Password')}')",
+                                    "queries": {
+                                        "$select": "Value"
+                                    }
+                                },
+                                "runAfter": {
+                                    "GetSabreUsername": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "ApiConnection"
+                            },
+                            "GetSabreToken": {
+                                "inputs": {
+                                    "function": {
+                                        "id": "/subscriptions/0a06704c-e754-450f-8cc6-5b7f82dca26d/resourceGroups/rg-bidtravel-pnrfinisher-dev/providers/Microsoft.Web/sites/fn-bidtravel-pnrfinisher-authentication-dev/functions/GetSabreToken"
+                                    },
+                                    "headers": {
+                                        "SabreUserID": "@body('Parse_JSON')['UserID']",
+                                        "TokenURL": "@{body('GetSabreBaseURL')['Value']}/v2/auth/token"
+                                    },
+                                    "method": "POST"
+                                },
+                                "runAfter": {
+                                    "Parse_JSON": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "Function"
+                            },
+                            "GetSabreUserID": {
+                                "inputs": {
+                                    "function": {
+                                        "id": "/subscriptions/0a06704c-e754-450f-8cc6-5b7f82dca26d/resourceGroups/rg-bidtravel-pnrfinisher-dev/providers/Microsoft.Web/sites/fn-bidtravel-pnrfinisher-authentication-dev/functions/GetSabreUserID"
+                                    },
+                                    "headers": {
+                                        "PCC": "@{body('GetSabrePCC')['Value']}",
+                                        "Password": "@{body('GetSabrePassword')['Value']}",
+                                        "Username": "@{body('GetSabreUsername')['Value']}"
+                                    }
+                                },
+                                "runAfter": {
+                                    "GetFODUrl": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "Function"
+                            },
+                            "GetSabreUsername": {
+                                "inputs": {
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['azuretables']['connectionId']"
+                                        }
+                                    },
+                                    "method": "get",
+                                    "path": "/Tables/@{encodeURIComponent('Config')}/entities(PartitionKey='@{encodeURIComponent('Settings')}',RowKey='@{encodeURIComponent('Sabre_Username')}')",
+                                    "queries": {
+                                        "$select": "Value"
+                                    }
+                                },
+                                "runAfter": {
+                                    "GetSabreBaseURL": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "ApiConnection"
+                            },
+                            "Get_Remarks_to_Add_or_Change": {
+                                "inputs": {
+                                    "content": "@body('ApplyRules')",
+                                    "schema": {
+                                        "properties": {
+                                            "Action": {
+                                                "type": "integer"
+                                            },
+                                            "Prefix": {
+                                                "type": "string"
+                                            },
+                                            "RemarkText": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "runAfter": {
+                                    "ApplyRules": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "ParseJson"
+                            },
+                            "Parse_JSON": {
+                                "inputs": {
+                                    "content": "@body('GetSabreUserID')",
+                                    "schema": {
+                                        "properties": {
+                                            "UserID": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "UserID"
+                                        ],
+                                        "type": "object"
+                                    }
+                                },
+                                "runAfter": {
+                                    "GetSabreUserID": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "ParseJson"
+                            },
+                            "Rules_Applied": {
+                                "actions": {},
+                                "else": {
+                                    "actions": {
+                                        "HTTP": {
+                                            "inputs": {
+                                                "authentication": {
+                                                    "type": "Raw",
+                                                    "value": "Bearer @{body('Extract_Token')?['access_token']}"
+                                                },
+                                                "body": {
+                                                    "UpdatePassengerNameRecordRQ": {
+                                                        "Itinerary": {
+                                                            "id": "@{triggerBody()?['Name']}"
+                                                        },
+                                                        "PostProcessing": {
+                                                            "EndTransaction": {
+                                                                "Source": {
+                                                                    "ReceivedFrom": "API TEST"
+                                                                }
+                                                            },
+                                                            "QueuePlace": {
+                                                                "QueueInfo": {
+                                                                    "QueueIdentifier": [
+                                                                        {
+                                                                            "Number": "501",
+                                                                            "PrefatoryInstructionCode": "11"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "method": "POST",
+                                                "uri": "https://api-crt.cert.havail.sabre.com/v1.1.0/passenger/records?mode=update"
+                                            },
+                                            "runAfter": {},
+                                            "type": "Http"
+                                        }
+                                    }
+                                },
+                                "expression": {
+                                    "and": [
+                                        {
+                                            "equals": [
+                                                "@outputs('ApplyRules')['headers']['Errors']",
+                                                "false"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "runAfter": {
+                                    "Write_Remarks": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "If"
+                            },
+                            "Write_Remarks": {
+                                "inputs": {
+                                    "body": {
+                                        "UpdatePassengerNameRecordRQ": {
+                                            "Itinerary": {
+                                                "id": "@{outputs('ApplyRules')['headers']['Locator']}"
+                                            },
+                                            "PostProcessing": {
+                                                "EndTransaction": {
+                                                    "Source": {
+                                                        "ReceivedFrom": "API TEST"
+                                                    }
+                                                }
+                                            },
+                                            "SpecialReqDetails": {
+                                                "AddRemark": {
+                                                    "RemarkInfo": {
+                                                        "Remark": [
+                                                            {
+                                                                "Code": "H",
+                                                                "SegmentNumber": "1",
+                                                                "Text": "@{body('Get_Remarks_to_Add_or_Change')?['RemarkText']}",
+                                                                "Type": "Invoice"
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "headers": {
+                                        "Authorization": "Bearer @{body('Extract_Token')?['access_token']}",
+                                        "Content-Type": "application/json"
+                                    },
+                                    "method": "POST",
+                                    "uri": "https://api-crt.cert.havail.sabre.com/v1.1.0/passenger/records?mode=update"
+                                },
+                                "runAfter": {
+                                    "Get_Remarks_to_Add_or_Change": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "Http"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "greater": [
+                                        "@length(body('Get_blob_content'))",
+                                        0
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {
+                            "Get_blob_content": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "If"
+                    },
+                    "Get_blob_content": {
+                        "inputs": {
+                            "host": {
+                                "connection": {
+                                    "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                }
+                            },
+                            "method": "get",
+                            "path": "/datasets/default/files/@{encodeURIComponent(encodeURIComponent(triggerBody()?['Id']))}/content",
+                            "queries": {
+                                "inferContentType": true
+                            }
+                        },
+                        "runAfter": {},
+                        "type": "ApiConnection"
+                    }
+                },
+                "foreach": "@array(triggerBody())",
+                "runAfter": {},
+                "type": "Foreach"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "When_a_blob_is_added_or_modified_(properties_only)": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['azureblob']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/datasets/default/triggers/batch/onupdatedfile",
+                    "queries": {
+                        "checkBothCreatedAndModifiedDateTime": false,
+                        "folderId": "JTJmcG5yaW5jb21pbmc=",
+                        "maxFileCount": 10
+                    }
+                },
+                "metadata": {
+                    "JTJmcG5yaW5jb21pbmc=": "/pnrincoming"
+                },
+                "recurrence": {
+                    "frequency": "Minute",
+                    "interval": 1
+                },
+                "splitOn": "@triggerBody()",
+                "type": "ApiConnection"
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {
+                "azureblob": {
+                    "connectionId": "/subscriptions/0a06704c-e754-450f-8cc6-5b7f82dca26d/resourceGroups/rg-bidtravel-pnrfinisher-dev/providers/Microsoft.Web/connections/azureblob",
+                    "connectionName": "azureblob",
+                    "id": "/subscriptions/0a06704c-e754-450f-8cc6-5b7f82dca26d/providers/Microsoft.Web/locations/southafricanorth/managedApis/azureblob"
+                },
+                "azuretables": {
+                    "connectionId": "/subscriptions/0a06704c-e754-450f-8cc6-5b7f82dca26d/resourceGroups/rg-bidtravel-pnrfinisher-dev/providers/Microsoft.Web/connections/azuretables",
+                    "connectionName": "azuretables",
+                    "id": "/subscriptions/0a06704c-e754-450f-8cc6-5b7f82dca26d/providers/Microsoft.Web/locations/southafricanorth/managedApis/azuretables"
+                }
+            }
+        }
+    }
+}

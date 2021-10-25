@@ -1,0 +1,31 @@
+﻿<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sec="http://schemas.xmlsoap.org/ws/2002/12/secext" xmlns:mes="http://www.ebxml.org/namespaces/messageHeader" xmlns:v1="http://webservices.sabre.com/pnrbuilder/v1_19" xmlns:v11="http://services.sabre.com/res/or/v1_14">
+  <soapenv:Header>
+    <sec:Security>
+      <sec:BinarySecurityToken>{{Token}}</sec:BinarySecurityToken>
+    </sec:Security>
+    <mes:MessageHeader mes:id="?" mes:version="2.0">
+      <mes:From>
+        <mes:PartyId mes:type="urn:x12.org:IO5:01">99999</mes:PartyId>
+      </mes:From>
+      <mes:To>
+        <mes:PartyId mes:type="urn:x12.org:IO5:01">1231231</mes:PartyId>
+      </mes:To>
+      <mes:CPAId>ipcc</mes:CPAId>
+      <mes:ConversationId>ID</mes:ConversationId>
+      <mes:Service mes:type="?">getReservationRQ</mes:Service>
+      <mes:Action>getReservationRQ</mes:Action>
+      <mes:MessageData>
+        <mes:MessageId>1000</mes:MessageId>
+        <mes:Timestamp>2018-01-25T10:00:00</mes:Timestamp>
+        <mes:TimeToLive>2018-01-25T12:00:00</mes:TimeToLive>
+      </mes:MessageData>
+    </mes:MessageHeader>
+  </soapenv:Header>
+  <soapenv:Body>
+    <v1:GetReservationRQ Version="1.19.8">
+      <!--Optional:-->
+      <v1:Locator>{{Locator}}</v1:Locator>
+      <v1:RequestType>Stateless</v1:RequestType>
+    </v1:GetReservationRQ>
+  </soapenv:Body>
+</soapenv:Envelope>

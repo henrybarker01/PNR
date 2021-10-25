@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>BidTravel_Common</RootNamespace>
+    <AssemblyVersion>1.287.0.0</AssemblyVersion>
+    <FileVersion>1.287.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore" Version="5.0.2" />
+  </ItemGroup>
+
+</Project>

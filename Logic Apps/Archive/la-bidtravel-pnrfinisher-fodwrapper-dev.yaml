@@ -1,0 +1,42 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "QueryFOD": {
+                "inputs": {
+                    "function": {
+                        "id": "/subscriptions/0a06704c-e754-450f-8cc6-5b7f82dca26d/resourceGroups/rg-bidtravel-pnrfinisher-dev/providers/Microsoft.Web/sites/fn-bidtravel-pnrfinisher-pnrhandler-dev/functions/QueryFOD"
+                    }
+                },
+                "runAfter": {},
+                "type": "Function"
+            },
+            "Response": {
+                "inputs": {
+                    "body": "@body('QueryFOD')",
+                    "statusCode": 200
+                },
+                "kind": "Http",
+                "runAfter": {
+                    "QueryFOD": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Response"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {},
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "schema": {}
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    },
+    "parameters": {}
+}

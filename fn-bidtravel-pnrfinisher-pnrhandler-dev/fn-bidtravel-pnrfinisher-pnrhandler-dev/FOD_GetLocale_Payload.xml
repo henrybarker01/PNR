@@ -1,0 +1,1 @@
+﻿<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bid="http://bidtravel.traveport.services"><soapenv:Header/><soapenv:Body><bid:GetLocale><bid:group>{{Group}}</bid:group><bid:limit>99999</bid:limit><bid:debtorCode></bid:debtorCode><bid:destination>{{Destination}}</bid:destination></bid:GetLocale></soapenv:Body></soapenv:Envelope>
