@@ -40,6 +40,8 @@ namespace fn_bidtravel_pnrfinisher_portal
             string sNotes = oBodyJson["Notes"].ToString();
             string sLocator = oBodyJson["Locator"].ToString();
             string sStatus = oBodyJson["Status"].ToString();
+            string sSegment = oBodyJson["Segment"].ToString();
+            string sMandatory = oBodyJson["Mandatory"].ToString();
 
 
             //Connect to Storage Account
@@ -49,7 +51,7 @@ namespace fn_bidtravel_pnrfinisher_portal
 
 
             //Write Record
-            string sResult = await InsertRunEntity(oTable, sLocator, sRuleName, sStatus, sNotes);
+            string sResult = await InsertRunEntity(oTable, sLocator, sRuleName, sStatus, sNotes,sMandatory,sSegment);
 
             return new OkObjectResult(sResult);
         }
@@ -58,7 +60,7 @@ namespace fn_bidtravel_pnrfinisher_portal
 
 
 
-        public static async Task<string> InsertRunEntity(CloudTable table, string Locator,string RuleName,string Status, string Notes)
+        public static async Task<string> InsertRunEntity(CloudTable table, string Locator,string RuleName,string Status, string Notes, string Mandatory, string Segment)
         {
             try
             {
@@ -69,6 +71,8 @@ namespace fn_bidtravel_pnrfinisher_portal
                 oEntity.Locator = Locator;
                 oEntity.Status = Status;
                 oEntity.Notes = Notes;
+                oEntity.Segment = Segment;
+                oEntity.Mandatory = Mandatory;
                // oEntity.DateTimeStamp = DateTime.Now;
 
                 TableOperation oInsert = TableOperation.InsertOrMerge(oEntity);

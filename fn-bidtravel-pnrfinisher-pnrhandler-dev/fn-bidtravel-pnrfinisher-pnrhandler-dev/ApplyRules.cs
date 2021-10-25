@@ -29,6 +29,8 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
             public string RemarkID { get; set; }
             public string Status { get; set; }
             public string Notes { get; set; }
+            public bool Mandatory { get; set; }
+            public string Segment { get; set; }
 
         }
 
@@ -104,7 +106,7 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
 
                     if (sRule.ToLower().Equals("agmreferences") || sRule == string.Empty)
                     {
-                        for (int i = 1; i < 11; i++) //There are potentially 10 ACECRM-REFx occurances
+                        for (int i = 1; i < 3; i++) //There are potentially 2 ACECRM-REFx occurances
                         {
                             Remark oRemark = new Remark();
                             oRemark.RemarkText = string.Empty;
@@ -194,6 +196,8 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
                         oRemark.Notes = string.Empty;
                         oRemark.RemarkID = string.Empty;
                         oRemark.Action = RemarkAction.Add;
+                        oRemark.Segment = "Hotel";
+                        oRemark.Mandatory = false;
 
                         sRemarkTemplate = "ACEHOT-ST-{SALESTYPE}-PR-{PRODUCTTYPE}/S{SEGMENT}";
                         oRemark.Prefix = "ACEHOT-";
@@ -298,7 +302,6 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
 
                     #region HotelCancellation
 
-
                     if (sRule.ToLower().Equals("hotelcancellation") || sRule == string.Empty)
                     {
                         Remark oRemark = new Remark(); 
@@ -308,6 +311,8 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
                         oRemark.Action = RemarkAction.Add;
                         sRemarkTemplate = "ACERMK-VOUCH1H-{POLICYTEXT}.*S{SEGMENT}";
                         oRemark.Prefix = "ACERMK-VOUCH1H-";
+                        oRemark.Segment = "Hotel";
+                        oRemark.Mandatory = false;
 
                         //Get Cancellation Policy Text
                         string sPolicyText = Utilities.GetXMLValue(oDoc, "or114:CancellationPolicy").ToUpper();
@@ -374,6 +379,8 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
                         oRemark.Notes = string.Empty;
                         oRemark.RemarkID = string.Empty;
                         oRemark.Action = RemarkAction.Add;
+                        oRemark.Segment = "Hotel";
+                        oRemark.Mandatory = true;
 
                         string sExistingRemarkText = string.Empty;
 
@@ -472,6 +479,8 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
                         oRemark.Notes = string.Empty;
                         oRemark.RemarkID = string.Empty;
                         oRemark.Action = RemarkAction.Add;
+                        oRemark.Segment = "Hotel";
+                        oRemark.Mandatory = false;
 
                         oRemark.Prefix = "ACERMK-VOUCH" + i + "H-";
 
@@ -632,7 +641,7 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
                 }
                 #endregion
 
-                #region Car Remarks
+                    #region Car Remarks
 
                 if (sRule.ToLower().Equals("carremarks") || sRule == string.Empty)
                 {
@@ -643,6 +652,8 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
                     oRemark.Notes = string.Empty;
                     oRemark.RemarkID = string.Empty;
                     oRemark.Action = RemarkAction.Add;
+                    oRemark.Segment = "Car";
+                    oRemark.Mandatory = true;
 
                     sRemarkTemplate = "ACECAR-ST-{SALESTYPE}-PR-{PRODUCTTYPE}/S{SEGMENT}";
                     oRemark.Prefix = "ACECAR-";
@@ -738,7 +749,7 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
 
                 #endregion
 
-                #region Car Savings
+                    #region Car Savings
 
                 if (sRule.ToLower().Equals("carsavings") || sRule == string.Empty)
                 {
@@ -751,6 +762,9 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
                         oRemark.Notes = string.Empty;
                         oRemark.RemarkID = string.Empty;
                         oRemark.Action = RemarkAction.Add;
+                        oRemark.Segment = "Car";
+                        oRemark.Mandatory = true;
+
 
                         if (i == 0)
                             oRemark.Prefix = "ACECV1-";
@@ -832,8 +846,7 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
 
                 #endregion
 
-
-                #region Air Saving Remarks
+                    #region Air Saving Remarks
 
                 if (sRule.ToLower().Equals("airsavingsremarks") || sRule == string.Empty)
                 {
@@ -845,11 +858,13 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
                         oRemark.Notes = string.Empty;
                         oRemark.RemarkID = string.Empty;
                         oRemark.Action = RemarkAction.Add;
+                        oRemark.Segment = "Air";
+                        oRemark.Mandatory = true;
 
                         string sExistingRemarkText = string.Empty;
 
                         sRemarkTemplate = "ACESV" + i + "A-{AMOUNT}-{REASONCODE}-*S{SEGMENT}";
-                        oRemark.Prefix = "ACEHV" + i + "-";
+                        oRemark.Prefix = "ACESV" + i + "A-";
 
 
                         //Search all existing Remarks
@@ -931,7 +946,8 @@ namespace fn_bidtravel_pnrfinisher_pnrhandler
 
                 #endregion
 
-                #endregion
+
+                    #endregion
 
 
 

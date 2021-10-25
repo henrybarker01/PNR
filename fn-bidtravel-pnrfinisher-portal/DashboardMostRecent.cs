@@ -13,22 +13,20 @@ namespace fn_bidtravel_pnrfinisher_portal
 {
     public static class DashboardMostRecent
     {
-        private struct DashboardMostRecentItem
-        {
-            public string Identifier { get; set; }
-            public string PCC { get; set; }
-            public DateTime DateTimeStamp { get; set; }
-            public int Rules { get; set; }
-            public string Status { get; set; }
-        }
+        //private struct DashboardMostRecentItem
+        //{
+        //    public string Identifier { get; set; }
+        //    public string PCC { get; set; }
+        //    public DateTime DateTimeStamp { get; set; }
+        //    public int Rules { get; set; }
+        //    public string Status { get; set; }
+        //}
 
 
         [FunctionName("GetDashboardMostRecent")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req, ILogger log)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req, ILogger log)
         {
             ContentResult oReturn = new ContentResult();
-
-
 
             log.LogInformation("GetDashboardMostRecent() Invoked ...");
 
@@ -40,9 +38,7 @@ namespace fn_bidtravel_pnrfinisher_portal
                 string sDateTimeStart = req.Query["StartDate"];
                 string sDateTimeEnd = req.Query["EndDate"];
 
-                string sReturnPayload = Newtonsoft.Json.JsonConvert.SerializeObject(GetDashboardMostRecent());
-
-
+                string sReturnPayload = Newtonsoft.Json.JsonConvert.SerializeObject(GetProcessedList.GetProcessedItems());   //Newtonsoft.Json.JsonConvert.SerializeObject(GetDashboardMostRecent());
 
 
 
@@ -69,69 +65,69 @@ namespace fn_bidtravel_pnrfinisher_portal
 
 
 
-        private static List<DashboardMostRecentItem> GetDashboardMostRecent()
-        {
-            List<DashboardMostRecentItem> oReturn = new List<DashboardMostRecentItem>();
+        //private static List<DashboardMostRecentItem> GetDashboardMostRecent()
+        //{
+        //    List<DashboardMostRecentItem> oReturn = new List<DashboardMostRecentItem>();
 
 
-            try
-            {
-                DashboardMostRecentItem oItem = new DashboardMostRecentItem();
+        //    try
+        //    {
+        //        DashboardMostRecentItem oItem = new DashboardMostRecentItem();
 
-                Random oRnd = new Random();
+        //        Random oRnd = new Random();
 
-                oItem.DateTimeStamp = DateTime.Now.AddSeconds(oRnd.Next(1, 100));
+        //        oItem.DateTimeStamp = DateTime.Now.AddSeconds(oRnd.Next(1, 100));
 
-                oItem.Identifier = "FVHUQSRS";
-                oItem.PCC = "7SVG";
-                oItem.Rules = 4;
-                oItem.Status = "Passed";
+        //        oItem.Identifier = "FVHUQSRS";
+        //        oItem.PCC = "7SVG";
+        //        oItem.Rules = 4;
+        //        oItem.Status = "Passed";
 
-                oReturn.Add(oItem);
+        //        oReturn.Add(oItem);
                 
 
-                oItem.DateTimeStamp = DateTime.Now.AddSeconds(oRnd.Next(1, 100));
+        //        oItem.DateTimeStamp = DateTime.Now.AddSeconds(oRnd.Next(1, 100));
 
-                oItem.Identifier = "CDTRWKAA";
-                oItem.PCC = "7SVG";
-                oItem.Rules = 8;
-                oItem.Status = "Passed";
+        //        oItem.Identifier = "CDTRWKAA";
+        //        oItem.PCC = "7SVG";
+        //        oItem.Rules = 8;
+        //        oItem.Status = "Passed";
 
-                oReturn.Add(oItem);
-
-
-                oItem.DateTimeStamp = DateTime.Now.AddSeconds(oRnd.Next(1, 100));
-
-                oItem.Identifier = "GDUYUESC";
-                oItem.PCC = "P9DF";
-                oItem.Rules = 6;
-                oItem.Status = "Failed";
-
-                oReturn.Add(oItem);
-
-                oItem.DateTimeStamp = DateTime.Now.AddSeconds(oRnd.Next(1, 100));
-
-                oItem.Identifier = "GDCCETDS";
-                oItem.PCC = "P9DF";
-                oItem.Rules = 6;
-                oItem.Status = "Passed";
-
-                oReturn.Add(oItem);
+        //        oReturn.Add(oItem);
 
 
+        //        oItem.DateTimeStamp = DateTime.Now.AddSeconds(oRnd.Next(1, 100));
+
+        //        oItem.Identifier = "GDUYUESC";
+        //        oItem.PCC = "P9DF";
+        //        oItem.Rules = 6;
+        //        oItem.Status = "Failed";
+
+        //        oReturn.Add(oItem);
+
+        //        oItem.DateTimeStamp = DateTime.Now.AddSeconds(oRnd.Next(1, 100));
+
+        //        oItem.Identifier = "GDCCETDS";
+        //        oItem.PCC = "P9DF";
+        //        oItem.Rules = 6;
+        //        oItem.Status = "Passed";
+
+        //        oReturn.Add(oItem);
 
 
 
 
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
 
-            return oReturn;
-        }
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+
+        //    return oReturn;
+        //}
     }
 
 

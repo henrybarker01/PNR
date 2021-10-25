@@ -15,5 +15,7 @@ namespace fn_bidtravel_pnrfinisher_portal.models
         public string Status { get; set; }
         public string Notes { get; set; }
         public string Locator { get; set; }
+        public string Mandatory { get; set; }
+        public string Segment { get; set; }
     }
 }
